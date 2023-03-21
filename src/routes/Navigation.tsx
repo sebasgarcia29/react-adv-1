@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  NavLink
+  NavLink,
+  Redirect
 } from 'react-router-dom';
 
 import logo from '../logo.svg';
@@ -33,11 +34,10 @@ export const Navigation = () => {
           {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
           <Switch>
-            {routes.map(({ name, path, component: Component }) => (
-              <Route key={name} path={path} exact>
-                <Component />
-              </Route>
+            {routes.map(({ path, component: Component }) => (
+              <Route key={path} path={path} render={() => <Component />} />
             ))}
+            <Redirect to={routes[0].path} />
           </Switch>
         </div>
       </Router>
